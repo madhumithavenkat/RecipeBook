@@ -57,7 +57,7 @@ export class AuthComponent implements OnInit,OnDestroy {
     }
     
     this.authObs.subscribe(responseData =>{
-        console.log(responseData)
+        console.log("router navigate",responseData)
         this.isLoading = false
         this.router.navigate(['../recipes'])
 

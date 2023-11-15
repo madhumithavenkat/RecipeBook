@@ -103,25 +103,35 @@ export class RecipeService implements OnDestroy{
             .pipe(
             map(response => {
                 const returnArray = []
-                console.log(response)
-                response['data'].rec.forEach(element => {
-                  returnArray.push(element)
-                });
-                return returnArray;
+                console.log("Recipe Data:",response)
+                if(response['data'].rec.length === 0){
+                    return returnArray;
+                }else {
+                    response['data'].rec.forEach(element => {
+                        returnArray.push(element)
+                      });
+                      return returnArray;
+                }
+                
             }),
             tap(responseData =>{
-                console.log(responseData)
-                if(!this.recipesloaded){
-                responseData.forEach(element => {
-                    
-                    this.recipes.push(
-                       element
-                    )
-                    
-                })
-                this.recipesloaded = true
-                this.recipesChanged.next(this.recipes.slice())
+                console.log("Recipe:",responseData)
+                if(responseData.length === 0){
+
+                }else{
+                    if(!this.recipesloaded){
+                        responseData.forEach(element => {
+                            
+                            this.recipes.push(
+                               element
+                            )
+                            
+                        })
+                        this.recipesloaded = true
+                        this.recipesChanged.next(this.recipes.slice())
+                        }
                 }
+                
             }))
         
         }
